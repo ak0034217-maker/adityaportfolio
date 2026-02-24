@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: aliceblue;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Main container for the entire layout */
+        .container {
+            width: 80%;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            border: 1px solid #ddd;
+        }
+
+        header, footer {
+            background-color: #117A65;
+            color: white;
+            font-weight: bold;
+            padding: 20px;
+        }
+
+        header {
+            font-size: 24px;
+        }
+
+        footer {
+            font-size: 16px;
+        }
+
+        /* Flex container for the nav and main content */
+        .main-layout {
+            display: flex;
+        }
+
+        nav {
+            background-color: #48C9C0;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 30%;
+            padding: 20px;
+            box-sizing: border-box; /* Ensures padding is included in the width */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+            text-align: left;
+        }
+
+        nav li {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav li:hover {
+            background-color: #3ca99f;
+        }
+
+        /* Style for the currently active navigation item */
+        nav li.active {
+            background-color: #117A65;
+        }
+
+        main {
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 18px;
+            padding: 20px;
+            width: 70%;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>Website Header</header>
+
+        <div class="main-layout">
+            <nav>
+                Navigation Menu
+                <ul id="nav-menu">
+                    <li data-page="home" class="active">Home</li>
+                    <li data-page="about">About</li>
+                    <li data-page="services">Services</li>
+                    <li data-page="contact">Contact</li>
+                </ul>
+            </nav>
+
+            <main id="main-content">
+                </main>
+        </div>
+
+        <footer>Footer section &copy; 2025 created by Aditya Raj</footer>
+    </div>
+
+    <script>
+        // --- JavaScript for Interactive Content ---
+
+        // 1. Define the content for each page
+        const pageContent = {
+            home: {
+                title: "Welcome to our Website!",
+                content: "This is the homepage. We are excited to have you here. This page layout is built with modern HTML5 and CSS, and the content is dynamically rendered using JavaScript."
+            },
+            about: {
+                title: "About Us",
+                content: "We are a forward-thinking company based in Amritsar, specializing in innovative web solutions. Our mission is to build beautiful and functional websites."
+            },
+            services: {
+                title: "Our Services",
+                content: "We offer a range of services including web design, JavaScript development, and digital consulting to help your business succeed online."
+            },
+            contact: {
+                title: "Contact Us",
+                content: "You can reach us by email at contact@example.com. We look forward to hearing from you!"
+            }
+        };
+
+        // 2. Get references to the HTML elements we need to work with
+        const navMenu = document.getElementById('nav-menu');
+        const mainContent = document.getElementById('main-content');
+        const navLinks = navMenu.querySelectorAll('li');
+
+        // 3. Function to update the main content based on the page name
+        function updateContent(pageName) {
+            const content = pageContent[pageName];
+            if (content) {
+                mainContent.innerHTML = `<h2>${content.title}</h2><p>${content.content}</p>`;
+                
+                // Update the 'active' class on navigation links
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.page === pageName) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // 4. Add a click event listener to the navigation menu
+        navMenu.addEventListener('click', (event) => {
+            // Check if the clicked item is an 'LI' element with a 'data-page' attribute
+            if (event.target && event.target.tagName === 'LI' && event.target.dataset.page) {
+                const page = event.target.dataset.page;
+                updateContent(page);
+            }
+        });
+
+        // 5. Load the initial 'home' page content when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateContent('home');
+        });
+    </script>
+
+</body>
+</html>
